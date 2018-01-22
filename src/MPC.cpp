@@ -46,12 +46,14 @@ class FG_eval {
     
       // The part of the cost based on the reference state.
       //this part set the cost (same as the udacity cost part)
-      f[g]=0;
+      fg[0]]=0;//initial cost to be optimized
+      
+      //cost for state
       
       for (int t = 0; t < N; t++) {
-          fg[0] += (100+i*10)*CppAD::pow(vars[cte_start + t], 2);
-          fg[0] += (100+i*10)*CppAD::pow(vars[epsi_start + t], 2);
-          fg[0] += CppAD::pow(vars[v_start + t] - ref_v, 2);
+          fg[0] += (100+t*10)*CppAD::pow(vars[cte_start + t], 2);
+          fg[0] += (100+t*10)*CppAD::pow(vars[epsi_start + t], 2);
+          fg[0] += CppAD::pow(vars[v_start + t] - v_ref, 2);
       }
       
       // Minimize the use of actuators.
