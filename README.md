@@ -50,6 +50,35 @@ is the vehicle starting offset of a straight line (reference). If the MPC implem
 
 
 ## Report
+
+## Model of the vehicle
+
+
+State
+The state for the model is [X Y PSI V]. V is the speed of car, PSI is the angle of the car to the angle of x-axis, X,Y are the 2D coordinate of car.
+
+Actuators and update equation
+
+Actuators delta(steering angle) and a(throttle) are modeled as the angular acceleration and acceleration. However, the real angular acceleration should be double d_psi = v / Lf * delta * dt
+
+Errors CTE(cross track error) 
+E-Psi(psi error) :orietation error
+
+## Update Equation (121~128 in MPC.cpp)
+          fg[1 + x_start + t] = x1 - (x0 + v0 * CppAD::cos(psi0) * dt);
+          fg[1 + y_start + t] = y1 - (y0 + v0 * CppAD::sin(psi0) * dt);
+          fg[1 + psi_start + t] = psi1 - (psi0 + v0 * delta0 / Lf * dt);
+          fg[1 + v_start + t] = v1 - (v0 + a0 * dt);
+          fg[1 + cte_start + t] = cte1 - ((f0 - y0) + (v0 * CppAD::sin(epsi0) * dt));
+          fg[1 + epsi_start + t] = epsi1 - ((psi0 - psides0) + v0 * delta0 / Lf * dt);
+
+
+## Polynomial fitting and MPC preprocessing
+
+
+
+## N and dt
+
 The Time step length(N) and the Elapsed duration(dt)
 
 N * dt = T (Predict horizon)
@@ -57,13 +86,6 @@ N * dt = T (Predict horizon)
 In theory, we would like to have a very large T. Also, we would want the dt to be as small as possible.
 However, we only feet the track by 6 points with 3 degree polynomial. Besides, the enviroment change a lot in 1~2 seconds so that we should choose a T which make sense to our car. What is more, the dt would be correspond with the calculation time.The N would increase if we would likt to have a small dt.This would enhance the computation time. I start with the dt=0.01 and N =15. This mean my predict horizon is 0.15. By the method of try and error, I finally choose dt =0.08 and N =15 for this project. 
 
-## Model of the vehicle
-
-Actuators delta(steering angle) and a(throttle) are modeled as the angular acceleration and acceleration. However, the real angular acceleration should be double d_psi = v / Lf * delta * dt
-
-Errors CTE(cross track error) and E-Psi(psi error) are the difference value the the reference trajectory(which is a fitted polynomial of degree 3)
-
-The state for the model is [X Y PSI V]. V is the speed of car, PSI is the angle of the car to the angle of x-axis, X,Y are the 2D coordinate of car.
 
 
 
