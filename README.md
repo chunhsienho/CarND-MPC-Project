@@ -55,7 +55,7 @@ The Time step length(N) and the Elapsed duration(dt)
 N * dt = T (Predict horizon)
 
 In theory, we would like to have a very large T. Also, we would want the dt to be as small as possible.
-However, we only feet the track by 6 points with 3 degree polynomial. Besides, the enviroment change a lot in 1~2 seconds so that we should choose a T which make sense to our car. What is more, the dt would be correspond with the calculation time.The N would increase if we would likt to have a small dt.This would enhance the computation time. By the method of try and error, I finally choose dt =0.08 and N =15 for this project.
+However, we only feet the track by 6 points with 3 degree polynomial. Besides, the enviroment change a lot in 1~2 seconds so that we should choose a T which make sense to our car. What is more, the dt would be correspond with the calculation time.The N would increase if we would likt to have a small dt.This would enhance the computation time. I start with the dt=0.01 and N =15. This mean my predict horizon is 0.15. By the method of try and error, I finally choose dt =0.08 and N =15 for this project. 
 
 ## Model of the vehicle
 
