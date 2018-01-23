@@ -74,7 +74,17 @@ E-Psi(psi error) :orietation error
 
 
 ## Polynomial fitting and MPC preprocessing
+I have the coordinate transform in line 115 in main.cpp. The code is as flow
+                xvals[i] = x_shift * cos(0-psi) - y_shift * sin(0-psi);
+                yvals[i] = x_shift * sin(0-psi) + y_shift * cos(0-psi);
 
+## 100 millisecond latency
+
+In the Main.cpp , I appiled the 100 millisecond in the line 98.
+The latecy would affect the x and y position.
+The code is as follow
+            px=px+v*cos(psi)*latency;
+            py=py+v*sin(psi)*latency;
 
 
 ## N and dt
