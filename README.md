@@ -64,7 +64,9 @@ Actuators delta(steering angle) and a(throttle) are modeled as the angular accel
 Errors CTE(cross track error) 
 E-Psi(psi error) :orietation error
 
-## Update Equation (121~128 in MPC.cpp)
+## Update Equation 
+The code is in 121~128 for main.cpp
+
           fg[1 + x_start + t] = x1 - (x0 + v0 * CppAD::cos(psi0) * dt);
           fg[1 + y_start + t] = y1 - (y0 + v0 * CppAD::sin(psi0) * dt);
           fg[1 + psi_start + t] = psi1 - (psi0 + v0 * delta0 / Lf * dt);
