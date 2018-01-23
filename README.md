@@ -75,18 +75,26 @@ The code is in 121~128 for main.cpp
           fg[1 + epsi_start + t] = epsi1 - ((psi0 - psides0) + v0 * delta0 / Lf * dt);
 
 
-## Polynomial fitting and MPC preprocessing
-I have the coordinate transform in line 115 in main.cpp. The code is as flow
-                xvals[i] = x_shift * cos(0-psi) - y_shift * sin(0-psi);
-                yvals[i] = x_shift * sin(0-psi) + y_shift * cos(0-psi);
+
 
 ## 100 millisecond latency
 
 In the Main.cpp , I appiled the 100 millisecond in the line 98.
 The latecy would affect the x and y position.
 The code is as follow
+
             px=px+v*cos(psi)*latency;
             py=py+v*sin(psi)*latency;
+            
+The px,py would affect the polynomial fitting and mpc preprocessing
+
+## Polynomial fitting and MPC preprocessing
+I have the coordinate transform in line 115 in main.cpp. The code is as flow
+
+                double x_shift = ptsx[i] - px;
+                double y_shift = ptsy[i] - py;
+                xvals[i] = x_shift * cos(0-psi) - y_shift * sin(0-psi);
+                yvals[i] = x_shift * sin(0-psi) + y_shift * cos(0-psi);
 
 
 ## N and dt
