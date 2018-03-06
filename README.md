@@ -59,7 +59,7 @@ The state for the model is [X Y PSI V]. V is the speed of car, PSI is the angle 
 
 Actuators and update equation
 
-Actuators delta(steering angle) and a(throttle) are modeled as the angular acceleration and acceleration. However, the real angular acceleration should be double d_psi = v / Lf * delta * dt
+Actuators delta(steering angle) and a(throttle) are modeled as the angular acceleration and acceleration. However, the real angular acceleration should be double d_psi = v / Lf * delta_steering_angle * dt
 
 Errors CTE(cross track error) 
 E-Psi(psi error) :orietation error
