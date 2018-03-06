@@ -46,7 +46,7 @@ class FG_eval {
     
       // The part of the cost based on the reference state.
       //this part set the cost (same as the udacity cost part)
-      fg[0]]=0;//initial cost to be optimized
+      fg[0]=0;//initial cost to be optimized
       
       //cost for state
       
@@ -138,7 +138,7 @@ MPC::~MPC() {}
 
 vector<double> MPC::Solve(Eigen::VectorXd state, Eigen::VectorXd coeffs) {
   bool ok = true;
-  size_t i;
+  size_t t;
   typedef CPPAD_TESTVECTOR(double) Dvector;
     
     double x = state[0];
@@ -235,7 +235,8 @@ vector<double> MPC::Solve(Eigen::VectorXd state, Eigen::VectorXd coeffs) {
   options += "Sparse  true        reverse\n";
   // NOTE: Currently the solver has a maximum time limit of 0.5 seconds.
   // Change this as you see fit.
-  options += "Numeric max_cpu_time          0.5\n";
+  options += "Numeric max_cpu_time 100\n";
+    //options += "Numeric max_cpu_time          50\n"; //change it from 0.5-> 50 so as to let the calculation run the car or the car would not move and the calculation would fail
 
   // place to return solution
   CppAD::ipopt::solve_result<Dvector> solution;
@@ -258,9 +259,9 @@ vector<double> MPC::Solve(Eigen::VectorXd state, Eigen::VectorXd coeffs) {
     result.push_back(solution.x[delta_start]);
     result.push_back(solution.x[a_start]);
     
-    for (size_t i = 0; i < N-1; i++) {
-        result.push_back(solution.x[x_start + i]);
-        result.push_back(solution.x[y_start + i]);
+    for (size_t t = 0; t < N-1; t++) {
+        result.push_back(solution.x[x_start + t]);
+        result.push_back(solution.x[y_start + t]);
     }
 
   // {...} is shorthand for creating a vector, so auto x1 = {1.0,2.0}
