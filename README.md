@@ -79,12 +79,16 @@ The code is in 121~128 for main.cpp
 
 ## 100 millisecond latency
 
-In the Main.cpp , I appiled the 100 millisecond in the line 98.
-The latecy would affect the x and y position.
+In the Main.cpp , I appiled the 100 millisecond in the line 102 in main.cpp file.
+The latecy would affect the x,y vehicle velocity and the psi for the vihicle.
 The code is as follow
 
             px=px+v*cos(psi)*latency;
             py=py+v*sin(psi)*latency;
+            psi=psi-v/Lf*angle_steer*latency;
+            v=v+pedal_throttle*latency;
+            
+
             
 The px,py would affect the polynomial fitting and mpc preprocessing
 
@@ -104,7 +108,7 @@ The Time step length(N) and the Elapsed duration(dt)
 N * dt = T (Predict horizon)
 
 In theory, we would like to have a very large T. Also, we would want the dt to be as small as possible.
-However, we only feet the track by 6 points with 3 degree polynomial. Besides, the enviroment change a lot in 1~2 seconds so that we should choose a T which make sense to our car. What is more, the dt would be correspond with the calculation time.The N would increase if we would likt to have a small dt.This would enhance the computation time. I start with the dt=0.01 and N =15. This mean my predict horizon is 0.15. By the method of try and error, I finally choose dt =0.08 and N =15 for this project. 
+However, we only feet the track by 6 points with 3 degree polynomial. Besides, the enviroment change a lot in 1~2 seconds so that we should choose a T which make sense to our car. What is more, the dt would be correspond with the calculation time.The N would increase if we would likt to have a small dt.This would enhance the computation time. I start with the dt=0.01 and N =15. This mean my predict horizon is 0.15. By the method of try and error, I finally choose dt =0.04 and N =15 for this project. 
 
 
 
